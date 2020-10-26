@@ -1,0 +1,56 @@
+1) Execute: apt-get install nginx python-virtualenv pip3
+2) Create Directory: /var/www/twitchbot
+3) Put the application in the twitchbot folder
+4) Add the domain to ALLOWED_HOSTS in TwitchBot/settings.py
+5) Add your twitch client ID to config/config.json
+6) Execute: cd /var/www/twitchbot
+7) Execute: virtualenv venv
+8) Execute: source venv/bin/activate
+9) Execute: pip3 install -r requirements.txt
+
+10) Replace the contents of /etc/rc.local with the following:
+
+cd /var/www/twitchbot
+source venv/bin/activate
+gunicorn TwitchBot.wsgi
+exit 0
+
+
+11) Replace the contents of "/etc/nginx/sites-available/default" with the following:
+
+server {
+	listen 80;
+	listen [::]:80;
+	client_max_body_size 4G;
+	keepalive_timeout 5;
+
+	server_name localhost;
+
+	rewrite_log     on;
+	root /var/www/twitchbot/production/;
+	index index.php index.html;
+
+	location / {
+	  # checks for static file, if not found proxy to app
+	  try_files $uri @proxy_to_app;
+	}
+
+	location @proxy_to_app {
+		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+		proxy_set_header X-Forwarded-Proto $scheme;
+		proxy_set_header Host $http_host;
+		proxy_redirect off;
+		proxy_pass http://0.0.0.0:8000;
+	}
+
+	location ~ /\.ht {
+		deny all;
+	}
+
+	# Hide dot files/folders
+	location ~ .*/\. {
+		return 403;
+	}
+}
+
+12) Restart the server

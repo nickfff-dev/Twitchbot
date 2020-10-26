@@ -1,0 +1,38 @@
+{% extends "base/base_form.html" %}
+{% load widget_tweaks %}
+
+{% block form %}
+    <label for="platform">Platform</label>
+    <select {% if editing %}disabled{% endif %}
+            id="platform"
+            onchange="(window.location = 'create?type=' + this.options[this.selectedIndex].value);">
+        {% if account_type is None %}
+            <option disabled selected>Select account type</option>
+            <option value="1">Twitter</option>
+            <option value="2">Instagram</option>
+        {% else %}
+            <option disabled>Select account type</option>
+            {% if account_type == 1 %}
+                <option value="1" selected>Twitter</option>
+                <option value="2">Instagram</option>
+            {% else %}
+                <option value="1">Twitter</option>
+                <option value="2" selected>Instagram</option>
+            {% endif %}
+        {% endif %}
+
+    </select>
+    {% if account_type is not None %}
+        {% for field in form %}
+            <div class="row">
+                <div class="input-field col s12">
+                    <label for="{{ field.auto_id }}">{{ field.label }}</label>
+                    {{ field|attr:"tabindex:1|add_class:my_css_class" }}
+                    {% for error in field.errors %}
+                        <p style="color: red">{{ error }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endblock %}

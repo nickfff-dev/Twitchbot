@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TwitchBot | {% block title %}{% endblock %}</title>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}"/>
+</head>
+
+<body>
+{% block top-menu %}{% endblock %}
+{% block content %}{% endblock %}
+</body>
+
+{#<footer>#}
+{#    <div class="right" style="padding: 80px">#}
+{#        <h6 id="time"></h6>#}
+{#    </div>#}
+{#</footer>#}
+</html>
+
+<script>
+    $(document).ready(function () {
+        $('.modal').modal();
+        $('select').formSelect();
+        $('.account-dropdown-trigger').dropdown({
+            coverTrigger: false,
+            hover: true,
+            closeOnClick: false,
+            constrainWidth: false,
+        });
+    });
+
+    {#let date = new Date($.ajax({async: false}).getResponseHeader('Date'));#}
+    {#document.getElementById("time").innerHTML = date.getDay() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear()#}
+    {#    + " " + (date.getHours() % 12) + ":"#}
+    {#    + (date.getMinutes() < 10 ? "0" : "") + date.getMinutes()#}
+    {#    + " " + (date.getHours() >= 12 ? "PM" : "AM");#}
+</script>

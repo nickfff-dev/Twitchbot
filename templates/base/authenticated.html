@@ -1,0 +1,52 @@
+{% extends "base/base.html" %}
+
+{% block top-menu %}
+    <body>
+    <nav class="blue" role="navigation">
+        <div class="nav-wrapper container">
+            <a href="/" class="logo">Twitch Bot</a>
+            <a id="account-button"
+               class="account-dropdown-trigger top-menu-text nav-wrapper right" href="{% url 'dashboard' %}"
+               data-target="account-dropdown">
+                <i class="material-icons left" style="font-size: 30px">person</i>{{ user.username }}
+            </a>
+            <ul id="account-dropdown" class="right dropdown-content">
+                <li>
+                    <a href="{% url 'dashboard' %}"
+                       class="collapsible-header waves-effect waves-cyan light-blue-text">
+                        <i class="material-icons left" style="font-size: 30px">dashboard</i>Dashboard
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'upcoming' %}" class="collapsible-header waves-effect waves-cyan light-blue-text">
+                        <i class="material-icons left" style="font-size: 30px">format_list_numbered</i>Upcoming Posts
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'accounts' %}" class="collapsible-header waves-effect waves-cyan light-blue-text">
+                        <i class="material-icons left" style="font-size: 30px">people</i>Linked Accounts
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'logout' %}"
+                       class="truncate collapsible-header waves-effect waves-cyan light-blue-text">
+                        <i class="material-icons left" style="font-size: 30px">logout</i>Logout
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+{% endblock %}
+
+{% block footer %}
+    <div class="page-footer white">
+        <div class="right black-text">
+            <div class="container">
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

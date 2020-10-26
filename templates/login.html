@@ -1,0 +1,40 @@
+{% extends "base/base.html" %}
+{% load widget_tweaks %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+    <div class="login-form container" style="height: 90%">
+        <div class="row">
+            <h3 class="blue-text col s12 center-align">Login</h3>
+            <div class="col l4 offset-l4 m6 offset-m3 s12 z-depth-1 grey lighten-4 row">
+                <form class="col s12" method="post">
+                    {% csrf_token %}
+                    <br>
+
+                    {% for field in form %}
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <label for="{{ field.auto_id }}">{{ field.label }}</label>
+                                {{ field|attr:"tabindex:1|add_class:my_css_class" }}
+                                {% for error in field.errors %}
+                                    <p style="color: red">{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                    <br/>
+
+                    <div class='row'>
+                        <button type='submit' name='submit' tabindex="2"
+                                class='col s12 btn btn-large waves-effect blue'>
+                            Submit
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <p class="col s12 center-align">{% block alternate %}{% endblock %}</p>
+        </div>
+    </div>
+{% endblock %}

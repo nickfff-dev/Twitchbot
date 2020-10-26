@@ -1,0 +1,79 @@
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+
+.logo {
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.top-menu-text {
+    font-size: 25px;
+}
+
+a {
+    font-weight: bold;
+    padding: 0 10px 0 10px;
+}
+
+hr {
+    /*margin: 120px 0 120px 0;*/
+}
+
+h2 {
+    padding: 50px 0 10px 0;
+}
+
+.btn-large {
+    margin: 20px;
+}
+
+.valign-wrapper {
+    width: 100%;
+}
+
+.login-form {
+    padding-top: 8%;
+    height: 100%;
+}
+
+.create-form {
+    padding-top: 2%;
+    height: 100%;
+}
+
+
+label {
+    text-transform: capitalize;
+}
+
+#bot-table td:nth-child(4) {
+    width: 40%;
+}
+
+/*
+CREATE BOT
+ */
+textarea {
+    height: 500px;
+}
+
+/*
+ACCOUNTS
+ */
+.fixed-table-size {
+    height: 50px;
+    padding: 0 !important;
+}
+
+.row {
+    display: block;
+    margin: auto;
+}

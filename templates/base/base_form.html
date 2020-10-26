@@ -1,0 +1,26 @@
+{% extends "base/authenticated.html" %}
+{% load widget_tweaks %}
+
+{% block content %}
+    <div class="create-form container" style="height: 90%">
+        <div class="row">
+            <h3 class="blue-text col s12 center-align">{{ title }}</h3>
+            <div class="col l10 offset-l1 m10 offset-m1 s12 z-depth-1 grey lighten-4 row">
+                <form class="col s12" method="post">
+                    {% csrf_token %}
+                    <br>
+
+                    {% block form %}{% endblock %}
+
+                    <div class='row'>
+                        <button type='submit' name='submit' tabindex="2"
+                                class='col s12 btn btn-large waves-effect blue'>
+                            {% if editing %}Save{% else %}Create{% endif %}
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <p class="col s12 center-align">{% block alternate %}{% endblock %}</p>
+        </div>
+    </div>
+{% endblock %}

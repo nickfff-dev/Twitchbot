@@ -1,0 +1,37 @@
+{% extends "base/base_form.html" %}
+
+{% block form %}
+    <label for="caption"></label>
+    <textarea id="caption" name="caption" style="height: 200px">{{ text }}</textarea>
+    <br>
+{% endblock %}
+
+
+{#{% extends "base/authenticated.html" %}#}
+{#{% load widget_tweaks %}#}
+{##}
+{#{% block content %}#}
+{#    <div class="create-form container" style="height: 90%">#}
+{#        <div class="row">#}
+{#            <h3 class="blue-text col s12 center-align">{{ title }}</h3>#}
+{#            <div class="col l10 offset-l1 m10 offset-m1 s12 z-depth-1 grey lighten-4 row">#}
+{#                <form class="col s12" method="post">#}
+{#                    {% csrf_token %}#}
+{#                    <br>#}
+{##}
+{#                    <label for="caption"></label>#}
+{#                    <textarea id="caption" name="caption">{{ text }}</textarea>#}
+{#                    <br/>#}
+{##}
+{#                    <div class='row'>#}
+{#                        <button type='submit' name='submit' tabindex="2"#}
+{#                                class='col s12 btn btn-large waves-effect blue'>#}
+{#                            Save#}
+{#                        </button>#}
+{#                    </div>#}
+{#                </form>#}
+{#            </div>#}
+{#            <p class="col s12 center-align">{% block alternate %}{% endblock %}</p>#}
+{#        </div>#}
+{#    </div>#}
+{#{% endblock %}#}

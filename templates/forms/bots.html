@@ -1,0 +1,154 @@
+{% extends "base/base_form.html" %}
+
+{% block form %}
+    {% if bot is None %}
+        <div class="input-field">
+            <label for="{{ form.name.auto_id }}">{{ form.name.label }}</label>
+            {{ form.name }}
+            {% for error in form.name.errors %}
+                <p style="color: red">{{ error }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <div class="input-field">
+        <label for="account"></label>
+        <select required id="account" name="{{ form.account.name }}">
+            <option disabled selected>Select social media account</option>
+            {% for option in form.account %}
+                {{ option }}
+                {#                                <option value="{{ option }}">{{ option.name }}</option>#}
+            {% endfor %}
+        </select>
+        {% for error in form.account.errors %}
+            <p style="color: red">{{ error }}</p>
+        {% endfor %}
+    </div>
+
+    <br>
+    <h5>Criteria</h5>
+    <div class="input-field">
+        <table class="striped">
+            <tr>
+                <td>
+                    <div class="input-field">
+                        <label for="{{ form.channel.auto_id }}">{{ form.channel.label }}</label>
+                        {{ form.channel }}
+                        {% for error in form.channel.errors %}
+                            <p style="color: red">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                </td>
+                <td>
+                    <div class="input-field">
+                        <label for="{{ form.game.auto_id }}">{{ form.game.label }}</label>
+                        {{ form.game }}
+                        {% for error in form.game.errors %}
+                            <p style="color: red">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                </td>
+                <td>
+                    <div class="input-field">
+                        <label for="{{ form.curator.auto_id }}">{{ form.curator.label }}</label>
+                        {{ form.curator }}
+                        {% for error in form.curator.errors %}
+                            <p style="color: red">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                </td>
+
+                <td>
+                    <div class="center">
+                        <label>
+                            <input type="checkbox" name="{{ form.trending.name }}"
+                                   id="{{ form.trending.auto_id }}"/>
+                            <span>Trending</span>
+                        </label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="input-field">
+                        <label for="{{ form.min_views.auto_id }}">{{ form.min_views.label }}</label>
+                        {{ form.min_views }}
+                        {% for error in form.min_views.errors %}
+                            <p style="color: red">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                </td>
+
+                <td>
+                    <div class="input-field">
+                        <label for="{{ form.max_length.auto_id }}">{{ form.max_length.label }}
+                            (seconds)</label>
+                        {{ form.max_length }}
+                        {% for error in form.max_length.errors %}
+                            <p style="color: red">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                </td>
+
+                <td>
+                    <div class="input-field">
+                        <label for="{{ form.created_after.auto_id }}">{{ form.created_after.label }}</label>
+                        {{ form.created_after }}
+                        {% for error in form.created_after.errors %}
+                            <p style="color: red">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <br>
+    <div class="input-field">
+        <label for="language"></label>
+        <select required id="language" name="{{ form.language.name }}">
+            <option disabled selected>Select language</option>
+            {% for option in form.language %}
+                {{ option }}
+            {% endfor %}
+        </select>
+        {% for error in form.language.errors %}
+            <p style="color: red">{{ error }}</p>
+        {% endfor %}
+        {#                        <label for="language"></label>#}
+        {#                        <select id="language" name="{{ form.language.name }}">#}
+        {#                            <option value="" selected>Select language (optional)</option>#}
+        {#                            {% for name, code in languages.items %}#}
+        {#                                <h1>{{ name }}</h1>#}
+        {#                                {{ bot.language }}#}
+        {#                                <option value="{{ name }}" {% if name is bot.langauge %}selected{% endif %}>{{ name }}#}
+        {#                                </option>#}
+        {#                            {% endfor %}#}
+        {#                        </select>#}
+    </div>
+
+    <br>
+    <div class="input-field">
+        <label for="{{ form.priority.auto_id }}">{{ form.priority.label }} (higher is better)</label>
+        {{ form.priority }}
+        {% for error in form.priority.errors %}
+            <p style="color: red">{{ error }}</p>
+        {% endfor %}
+    </div>
+
+    <div class="input-field">
+        <label for="{{ form.daily.auto_id }}">{{ form.max_posts.label }} (per day)</label>
+        {{ form.max_posts }}
+        {% for error in form.max_posts.errors %}
+            <p style="color: red">{{ error }}</p>
+        {% endfor %}
+    </div>
+
+    <div class="input-field">
+        <div class="create-form" style="height: 90%">
+            <label for="{{ form.captions.auto_id }}">{{ form.captions.label }}</label>
+            <textarea id="{{ form.captions.auto_id }}" name="captions">{{ bot.captions }}</textarea>
+            <br/>
+        </div>
+    </div>
+{% endblock %}

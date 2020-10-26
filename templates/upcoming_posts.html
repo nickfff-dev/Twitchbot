@@ -1,0 +1,75 @@
+{% extends 'base/authenticated.html' %}
+
+{% block title %}Upcoming Posts{% endblock %}
+
+{% block content %}
+    <div class="upcoming-posts container">
+        <h2>Upcoming Posts</h2>
+        <table class="striped">
+            <tr>
+                <th>Username</th>
+                <th>Platform</th>
+                <th>Clip</th>
+                <th>Caption</th>
+                <th>Time Remaining</th>
+                <th></th>
+            </tr>
+            {% for post in upcoming_posts %}
+                <tr>
+                    <td>{{ post.account.username }}</td>
+                    <td>{% include 'base/platform.html' with type=post.account.type %}</td>
+                    <td><a href="{{ post.clip_url }}" target=_blank>{{ post.clip_url }}</a></td>
+                    <td>{{ post.caption }}</td>
+                    <td class="center">{{ post.time_remaining }}</td>
+                    <td>
+                        <div class="center">
+                            {% if remove %}
+                                <a class="waves-effect waves-light btn red modal-trigger"
+                                   href="#confirm_delete_{{ post.id }}">Delete</a>
+
+                                <div id="confirm_delete_{{ post.id }}" class="modal">
+                                    <div class="modal-content">
+                                        <h4>Confirm Deletion</h4>
+                                        <p>Are you sure you want to delete this post?</p>
+                                        <a class="modal-close blue waves-effect waves-light btn-large"
+                                           href="#">Cancel</a>
+                                        <a class="btn-large red"
+                                           href="{% url 'delete_post' %}?id={{ post.id }}">Delete</a>
+                                    </div>
+                                </div>
+                            {% else %}
+                                <a class="waves-effect waves-light btn blue modal-trigger"
+                                   href="{% url 'edit_post' %}?id={{ post.id }}">Edit</a>
+                            {% endif %}
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        <div class="right">
+            <br>
+            {% if remove %}
+                <a href="{% url 'upcoming' %}" id="download-button"
+                   class="btn-large waves-effect waves-light red lighten-1">Stop Editing</a>
+            {% else %}
+                <a href="{% url 'delete_post' %}" id="download-button"
+                   class="btn-large waves-effect waves-light blue">Edit List</a>
+            {% endif %}
+            <div id="confirm_regenerate" class="modal">
+                <div class="modal-content center">
+                    <h4>Confirm</h4>
+                    <p>Are you sure you want regenerate all upcoming posts? This will reset the post limit for
+                        each
+                        bot
+                        and could take a very long time to finish.</p>
+                    <a class="modal-close blue waves-effect waves-light btn-large"
+                       href="#">Cancel</a>
+                    <a class="btn-large"
+                       href="{% url 'upcoming' %}?regenerate=true">Regenerate</a>
+                </div>
+            </div>
+            <a class="waves-effect waves-light btn-large modal-trigger"
+               href="#confirm_regenerate">Regenerate Queue</a>
+        </div>
+    </div>
+{% endblock %}

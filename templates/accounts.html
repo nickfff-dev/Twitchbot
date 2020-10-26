@@ -1,0 +1,94 @@
+{% extends 'base/authenticated.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+    <div class="linked-accounts container">
+        <h2>Linked Accounts</h2>
+
+        <table class="striped">
+            <tr>
+                <th>Username</th>
+                <th>Type</th>
+                <th>Period</th>
+                <th>Linked Bots</th>
+                <th>Followers</th>
+                <th>Posts</th>
+                <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+            </tr>
+
+            {% for account in accounts %}
+                <tr>
+                    <td class="fixed-table-size">&nbsp;{{ account.username }}</td>
+                    <td class="fixed-table-size">{% include 'base/platform.html' with type=account.type %}</td>
+                    <td class="fixed-table-size">{{ account.period }} minutes</td>
+                    <td class="fixed-table-size">{{ account.twitchbot_set.count }}</td>
+                    <td class="fixed-table-size">{{ account.followers }}</td>
+                    <td class="fixed-table-size">{{ account.posts }}</td>
+                    <td class="fixed-table-size">
+                        <div class="center">
+                            {% if remove %}
+                                <!-- Modal Trigger -->
+                                {#                                <a href="{% url 'accounts_edit' %}?delete={{ item.name }}"#}
+                                {#                                   onclick="showModal(this, 'md1'); return false">#}
+                                {#                                    <div class="btn-small red">Delete</div>#}
+                                {#                                </a>#}
+                                <a class="waves-effect waves-light btn red modal-trigger"
+                                   href="#confirm_delete_{{ account.id }}">Delete</a>
+
+                                <div id="confirm_delete_{{ account.id }}" class="modal">
+                                    <div class="modal-content">
+                                        <h4>Confirm Deletion</h4>
+                                        <p>Deleting this social media account will also delete all Twitch Bots that
+                                            depend on it!</p>
+                                        <a class="modal-close blue waves-effect waves-light btn-large"
+                                           href="#">Cancel</a>
+                                        <a class="btn-large red"
+                                           href="{% url 'delete_account' %}?id={{ account.id }}">Delete</a>
+                                    </div>
+                                </div>
+                            {% else %}
+                                <a class="waves-effect waves-light btn blue modal-trigger"
+                                   href="{% url 'edit_account' %}?id={{ account.id }}">Edit</a>
+                            {% endif %}
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        <div class="row right">
+            {% if remove %}
+                <a href="{% url 'accounts' %}" id="download-button"
+                   class="btn-large waves-effect waves-light red lighten-1">Stop Editing</a>
+            {% else %}
+                <a href="{% url 'delete_account' %}" id="download-button"
+                   class="btn-large waves-effect waves-light blue">Edit List</a>
+            {% endif %}
+            <a href="{% url 'accounts_create' %}" id="download-button"
+               class=" btn-large waves-effect waves-light blue">Create New</a>
+        </div>
+    </div>
+
+    <div class="statistics container">
+        <h2>Statistics</h2>
+        <hr>
+        <div class="row center">
+            <div class="col s4">
+                <h3>{{ accounts.count }}</h3>
+                <h3>Accounts</h3>
+            </div>
+            <div class="col s4">
+                <h3>{{ total_followers }}</h3>
+                <h3>Followers</h3>
+            </div>
+            <div class="col s4">
+                <h3>{{ total_posts }}</h3>
+                <h3>Posts</h3>
+            </div>
+
+        </div>
+
+    </div>
+
+
+{% endblock %}
